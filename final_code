@@ -19,6 +19,8 @@ import {
   AlertTriangle,
   Apple,
   TestTube2,
+  History as HistoryIcon,
+  Printer,
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -47,7 +49,7 @@ const COLORS = {
   purple: "#a687f2",
 };
 
-const LOGO_DATA_URI = "data:image/png;base64,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ffPNN3Z2dgqFory8vFu3br17996zZw/Hcfb29vX19VVVVYGBgSNGjKipqdmxY4der1cqlXV1dUVFRSEhIWq1Oj4+3s3NTaFQFBUVWVtbL126lHjHSKAmP2oPWhgYgXh6enIct3fv3p49e06ZMiU3NzcuLs7Kysre3r66uvrevXtarbZv374MwygUipCQkNDQ0Hv37l24cMHLy4tl2fz8/EGDBg0dOnTp0qXu7u4PHjywtbV1cnKCzcQ++uij1tn3aL2Chszatm0bfAwPD09PT4d4Haj8dDpdVFSUv7//ihUryFXx8fHR0dHDhw///PPP33vvPS8vL6h7SktLN23apNFobt265enpCVV+fX19v379LC0t+fEe5eXlsPtEXl6er68vy7Lx8fH29vY2NjZarZZhmPT09OTkZLCwuLj4448/dnZ2hpVdFRUVHTp0+M9//rNt27Yvvvji4cOHK1euBO1mZmZu2bIlOTk5KCioe/fuxFmxadMmrVZbUFDQu3fvYcOGpaenm5mZ7dmz59KlS3fu3Fm+fHlNTU1paemsWbNOnToVFRUFyzEFjzFypQkEgr1791ZUVERERKSkpAiFwrlz527duvX777/PzMycM2eOUql8+PChhYXF6NGjd+zY0aVLF51Ot3r16q+//nr58uVTpkxZu3Yt9OvmzJkTGxt779697t27L126NDY21t3dfdy4cXfu3Pnhhx9gnqsVjiZbr6Chz3f27NnS0lJ3d/eoqKjr169HRERAw21lZZWQkLBu3bphw4YdO3bs9u3ber1+4sSJixYtio6OXrx48ZkzZywsLDZv3syyrFqtDgsL27p1a2Bg4PDhwydOnJiWlnbgwAEzM7MePXo4OjoWFBSQygZ+/oNsIgMjsP79+7u4uDg4OIjF4qSkpIsXL5JWAgoYzPxBkB00LGfPnj116lRDQ8N7771naWlZWloqFotDQ0Pd3Nyio6NVKhXDMGFhYZGRkYsXL4Y47wMHDiQkJPj7+w8ZMiQ1NfXDDz9MSUlZs2aNj49PXFzc999/v3XrVogmNXViwJGcnJyMjIwtW7ZERERkZWXpdLp+/fqtWbNm0qRJvr6+vr6+q1atunv3rre39xtvvJGQkNCmTZs+ffosXbq0pqbGxcXljTfeCAsLKykpqa+vHz58eHh4+Lhx4wICAiiKmj179q5du65du5aZmQkL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";
+const LOGO_DATA_URI = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPAAAADwCAIAAACxN37FAAAnRklEQVR42u2dd1wUV9fHZ7bDLk16W0VERYrd2LDEgkZj71iTGDEqwQTzoBFLCmINKgRR4qNJLEmMxhJNom9ERTFWECEoIr0sIB22zsz7x3m9n3l3kRhDlJjz/YMPOzsz98yd323nnnuX5jiOQpCXBQFmAYKCRhAUNIKgoBEEBY0gKGgEQUEjCAoaQUEjCAoaQVDQCIKCRhAUNIKCRhAUNIKgoBEEBY0gKGgEQUEjCAoaQVDQCAoaQVDQCIKCRhAUNIKgoBEUNIKgoBEEBY0gKGgEQUEjKGgEQUEjCAoaQVDQCAoaQVDQCIKCRhAUNIKgoBEUNIKgoBEEBY0gKGgEQUEjKGgEQUEjCAoaQVDQCIKCRlDQCIKCRhAUNIKgoBEUNIKgoBEEBY0gKGgEQUEjKGgEQUEjCAoaQVDQCAoaQVDQCIKCRhAUNIKgoBEEBY0gKGgEQUEjCAoaQUEjCAoaQVDQCIKCRhAUNIKgoBEUNIKgoBEEBY0gKGgEQUEjKGgEQUEjCAoaQVDQCAoaQf6x/D8U5xTCEnJctQAAAABJRU5ErkJggg==";
 
 const UNITS = { mgdl: "mg/dL", mmol: "mmol/L" };
 
@@ -309,7 +311,7 @@ const INFO_ARTICLES_BY_LANG = { en: INFO_ARTICLES_EN, bn: INFO_ARTICLES_BN };
 // ---------- UI text translations ----------
 const T = {
   en: {
-    nav: { tracker: "Tracker", info: "Info", settings: "Settings" },
+    nav: { tracker: "Tracker", history: "History", info: "Info", settings: "Settings" },
     tracker: {
       title: "Blood Sugar",
       recent: "Recent",
@@ -365,9 +367,34 @@ const T = {
       cannotDeleteLast: "You need at least one profile.",
       readingsCount: "readings",
     },
+    history: {
+      title: "History",
+      range: "Range",
+      d7: "7d",
+      d14: "14d",
+      d31: "31d",
+      all: "All",
+      colDate: "Date",
+      colTime: "Time",
+      colValue: "Value",
+      colTag: "Tag",
+      colStatus: "Status",
+      noData: "No readings in this range yet.",
+      exportCsv: "Export CSV",
+      exportPdf: "Export PDF (last 31 days)",
+      pdfNote: "PDF export always covers the most recent 31 days of readings.",
+      reportTitle: "Blood Sugar Report",
+      profileLabel: "Profile",
+      rangeUsed: "Range",
+      generatedOn: "Generated on",
+      last31: "Last 31 days",
+      totalReadings: "Total readings",
+      close: "Close",
+      preparing: "Preparing PDF…",
+    },
   },
   bn: {
-    nav: { tracker: "ট্র্যাকার", info: "তথ্য", settings: "সেটিংস" },
+    nav: { tracker: "ট্র্যাকার", history: "হিস্ট্রি", info: "তথ্য", settings: "সেটিংস" },
     tracker: {
       title: "রক্তে শর্করা",
       recent: "সাম্প্রতিক",
@@ -423,6 +450,31 @@ const T = {
       cannotDeleteLast: "অন্তত একটা প্রোফাইল থাকতেই হবে।",
       readingsCount: "টা রিডিং",
     },
+    history: {
+      title: "হিস্ট্রি",
+      range: "রেঞ্জ",
+      d7: "৭ দিন",
+      d14: "১৪ দিন",
+      d31: "৩১ দিন",
+      all: "সব",
+      colDate: "তারিখ",
+      colTime: "সময়",
+      colValue: "মান",
+      colTag: "ট্যাগ",
+      colStatus: "অবস্থা",
+      noData: "এই রেঞ্জে এখনো কোনো রিডিং নেই।",
+      exportCsv: "CSV এক্সপোর্ট করুন",
+      exportPdf: "PDF এক্সপোর্ট করুন (শেষ ৩১ দিন)",
+      pdfNote: "PDF এক্সপোর্ট সবসময় সাম্প্রতিক ৩১ দিনের রিডিং কভার করে।",
+      reportTitle: "ব্লাড সুগার রিপোর্ট",
+      profileLabel: "প্রোফাইল",
+      rangeUsed: "রেঞ্জ",
+      generatedOn: "তৈরি হয়েছে",
+      last31: "শেষ ৩১ দিন",
+      totalReadings: "মোট রিডিং",
+      close: "বন্ধ করুন",
+      preparing: "PDF তৈরি হচ্ছে…",
+    },
   },
 };
 
@@ -430,6 +482,7 @@ function BottomNav({ tab, setTab, lang }) {
   const tr = T[lang];
   const items = [
     { id: "tracker", label: tr.nav.tracker, icon: Droplet },
+    { id: "history", label: tr.nav.history, icon: HistoryIcon },
     { id: "info", label: tr.nav.info, icon: BookOpen },
     { id: "settings", label: tr.nav.settings, icon: SettingsIcon },
   ];
@@ -462,8 +515,8 @@ function BottomNav({ tab, setTab, lang }) {
               color: active ? COLORS.teal : COLORS.sub,
             }}
           >
-            <Icon size={20} strokeWidth={active ? 2.4 : 1.8} />
-            <span style={{ fontSize: 11, fontWeight: active ? 700 : 500 }}>
+            <Icon size={19} strokeWidth={active ? 2.4 : 1.8} />
+            <span style={{ fontSize: 10.5, fontWeight: active ? 700 : 500 }}>
               {it.label}
             </span>
           </button>
@@ -1074,7 +1127,8 @@ function SettingsTab({
               width: 46,
               height: 46,
               borderRadius: 12,
-              background: "#ffffff",
+              background: COLORS.tealDim,
+              border: `1px solid ${COLORS.teal}`,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -1082,10 +1136,12 @@ function SettingsTab({
               flexShrink: 0,
             }}
           >
-            <img src={LOGO_DATA_URI} alt="App logo" style={{ width: "100%", height: "100%", objectFit: "contain", padding: 4 }} />
+            <span style={{ fontSize: 18, fontWeight: 800, color: COLORS.teal }}>
+              {(activeProfileName || "?").trim().charAt(0).toUpperCase()}
+            </span>
           </div>
           <div>
-            <div style={{ fontSize: 14, fontWeight: 800, color: COLORS.ink }}>{tr.settings.dataLives}</div>
+            <div style={{ fontSize: 14, fontWeight: 800, color: COLORS.ink }}>{activeProfileName}</div>
             <div style={{ fontSize: 11.5, color: COLORS.sub }}>{tr.settings.exportBackup}</div>
           </div>
         </div>
@@ -1434,6 +1490,349 @@ function SettingsTab({
   );
 }
 
+// ---------- History tab ----------
+
+function buildCsv(rows, unit, profileName) {
+  const header = `Profile: ${profileName}\ndate,time,value_mgdl,value_mmol,tag,status\n`;
+  const body = rows
+    .slice()
+    .sort((a, b) => a.ts - b.ts)
+    .map((e) => {
+      const d = new Date(e.ts);
+      const st = statusFor(e.value).label;
+      return [
+        d.toLocaleDateString(),
+        d.toLocaleTimeString(),
+        Math.round(e.value),
+        toMmol(e.value).toFixed(1),
+        e.tag,
+        st,
+      ].join(",");
+    })
+    .join("\n");
+  return header + body;
+}
+
+function downloadBlob(content, type, filename) {
+  const blob = new Blob([content], { type });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function safeFileToken(name) {
+  return (
+    name.replace(/[^a-zA-Z0-9\u0980-\u09FF]+/g, "-").replace(/^-+|-+$/g, "") || "profile"
+  );
+}
+
+function HistoryTab({ entries, unit, lang, profileName }) {
+  const tr = T[lang].history;
+  const trStatus = T[lang].status;
+  const trTags = T[lang].tags;
+  const [range, setRange] = useState(31);
+  const [printing, setPrinting] = useState(false);
+  const printAreaId = useMemo(
+    () => "bs-print-area-" + Math.random().toString(36).slice(2),
+    []
+  );
+
+  useEffect(() => {
+    if (!printing) return;
+    const t = setTimeout(() => {
+      window.print();
+    }, 150);
+    const onAfterPrint = () => setPrinting(false);
+    window.addEventListener("afterprint", onAfterPrint);
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener("afterprint", onAfterPrint);
+    };
+  }, [printing]);
+
+  const now = Date.now();
+
+  const filtered = useMemo(() => {
+    let list = entries.slice();
+    if (range) {
+      const cutoff = now - range * 24 * 60 * 60 * 1000;
+      list = list.filter((e) => e.ts >= cutoff);
+    }
+    return list.sort((a, b) => b.ts - a.ts);
+  }, [entries, range]);
+
+  const last31 = useMemo(() => {
+    const cutoff = now - 31 * 24 * 60 * 60 * 1000;
+    return entries.filter((e) => e.ts >= cutoff).sort((a, b) => a.ts - b.ts);
+  }, [entries]);
+
+  const rangeChips = [
+    { id: 7, label: tr.d7 },
+    { id: 14, label: tr.d14 },
+    { id: 31, label: tr.d31 },
+    { id: null, label: tr.all },
+  ];
+
+  const exportCsv = () => {
+    const token = safeFileToken(profileName || "profile");
+    const rangeToken = range ? `${range}d` : "all";
+    downloadBlob(
+      buildCsv(filtered, unit, profileName || ""),
+      "text/csv",
+      `blood-sugar-history-${token}-${rangeToken}.csv`
+    );
+  };
+
+  const exportPdf = () => {
+    setPrinting(true);
+  };
+
+  const printRows = last31;
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+      <TopBar title={tr.title} />
+      {profileName && (
+        <div style={{ padding: "0 18px 8px", marginTop: -6 }}>
+          <span
+            style={{
+              display: "inline-block",
+              background: COLORS.card2,
+              color: COLORS.teal,
+              fontSize: 11.5,
+              fontWeight: 700,
+              padding: "4px 10px",
+              borderRadius: 20,
+            }}
+          >
+            {profileName}
+          </span>
+        </div>
+      )}
+      <div style={{ padding: "0 18px 10px" }}>
+        <div style={{ fontSize: 11, color: COLORS.sub, marginBottom: 6, textTransform: "uppercase", letterSpacing: 0.5 }}>
+          {tr.range}
+        </div>
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          {rangeChips.map((c) => (
+            <button
+              key={String(c.id)}
+              onClick={() => setRange(c.id)}
+              style={{
+                border: `1px solid ${range === c.id ? COLORS.teal : COLORS.card2}`,
+                background: range === c.id ? "rgba(43,217,201,0.12)" : "transparent",
+                color: range === c.id ? COLORS.teal : COLORS.sub,
+                borderRadius: 20,
+                padding: "6px 14px",
+                fontSize: 12,
+                fontWeight: 700,
+                cursor: "pointer",
+              }}
+            >
+              {c.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ flex: 1, overflowY: "auto", padding: "0 18px 200px" }}>
+        {filtered.length === 0 ? (
+          <div style={{ color: COLORS.sub, textAlign: "center", padding: "24px 0", fontSize: 13 }}>
+            {tr.noData}
+          </div>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {filtered.map((e) => {
+              const st = statusFor(e.value);
+              const d = new Date(e.ts);
+              return (
+                <div
+                  key={e.id}
+                  style={{
+                    background: COLORS.card,
+                    borderRadius: 12,
+                    padding: "10px 12px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 10,
+                    borderLeft: `3px solid ${st.color}`,
+                  }}
+                >
+                  <div style={{ minWidth: 74 }}>
+                    <div style={{ fontSize: 12, fontWeight: 700, color: COLORS.ink }}>
+                      {d.toLocaleDateString(undefined, { month: "short", day: "numeric" })}
+                    </div>
+                    <div style={{ fontSize: 10.5, color: COLORS.sub }}>
+                      {d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })}
+                    </div>
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: COLORS.ink }}>
+                      {fmt(e.value, unit)} <span style={{ fontSize: 10, color: COLORS.sub, fontWeight: 500 }}>{UNITS[unit]}</span>
+                    </div>
+                    <div style={{ fontSize: 11, color: COLORS.sub }}>{trTags[e.tag] || e.tag}</div>
+                  </div>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: st.color }}>
+                    {trStatus[st.label]}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      <div style={{ position: "absolute", bottom: 78, left: 18, right: 18, display: "flex", flexDirection: "column", gap: 8 }}>
+        <div style={{ display: "flex", gap: 8 }}>
+          <button
+            onClick={exportCsv}
+            style={{
+              flex: 1,
+              background: COLORS.card2,
+              color: COLORS.ink,
+              border: "none",
+              borderRadius: 14,
+              padding: "12px 0",
+              fontSize: 13,
+              fontWeight: 800,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 6,
+              cursor: "pointer",
+            }}
+          >
+            <Download size={15} /> {tr.exportCsv}
+          </button>
+          <button
+            onClick={exportPdf}
+            style={{
+              flex: 1,
+              background: COLORS.teal,
+              color: "#0c231f",
+              border: "none",
+              borderRadius: 14,
+              padding: "12px 0",
+              fontSize: 13,
+              fontWeight: 800,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 6,
+              cursor: "pointer",
+              boxShadow: "0 8px 20px -6px rgba(43,217,201,0.55)",
+            }}
+          >
+            <Printer size={15} /> {tr.exportPdf}
+          </button>
+        </div>
+        <div style={{ fontSize: 10.5, color: COLORS.sub, textAlign: "center" }}>{tr.pdfNote}</div>
+      </div>
+
+      {printing && (
+        <div
+          className={printAreaId}
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 9999,
+            overflowY: "auto",
+            fontFamily: "'Inter', -apple-system, 'Segoe UI', sans-serif",
+            color: "#111",
+            background: "#fff",
+            padding: "28px 32px",
+          }}
+        >
+          <style>{`
+            @media print {
+              body * { visibility: hidden; }
+              .${printAreaId}, .${printAreaId} * { visibility: visible; }
+              .${printAreaId} { position: fixed; inset: 0; padding: 24px 28px; }
+              .${printAreaId} .no-print { display: none !important; }
+            }
+          `}</style>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 6 }}>
+            <img src={LOGO_DATA_URI} alt="logo" style={{ width: 34, height: 34 }} />
+            <div style={{ fontSize: 20, fontWeight: 800 }}>{tr.reportTitle}</div>
+          </div>
+          <div style={{ fontSize: 12, color: "#555", marginBottom: 18, lineHeight: 1.6 }}>
+            {profileName && <div>{tr.profileLabel}: <strong>{profileName}</strong></div>}
+            <div>{tr.rangeUsed}: <strong>{tr.last31}</strong></div>
+            <div>{tr.totalReadings}: <strong>{printRows.length}</strong></div>
+            <div>{tr.generatedOn}: <strong>{new Date().toLocaleString()}</strong></div>
+          </div>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
+            <thead>
+              <tr>
+                {[tr.colDate, tr.colTime, tr.colValue, tr.colTag, tr.colStatus].map((h) => (
+                  <th
+                    key={h}
+                    style={{
+                      textAlign: "left",
+                      borderBottom: "2px solid #333",
+                      padding: "6px 8px",
+                      fontSize: 11.5,
+                      textTransform: "uppercase",
+                      letterSpacing: 0.4,
+                    }}
+                  >
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {printRows.map((e) => {
+                const d = new Date(e.ts);
+                const st = statusFor(e.value);
+                return (
+                  <tr key={e.id} style={{ breakInside: "avoid" }}>
+                    <td style={{ padding: "5px 8px", borderBottom: "1px solid #ddd" }}>
+                      {d.toLocaleDateString()}
+                    </td>
+                    <td style={{ padding: "5px 8px", borderBottom: "1px solid #ddd" }}>
+                      {d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })}
+                    </td>
+                    <td style={{ padding: "5px 8px", borderBottom: "1px solid #ddd" }}>
+                      {fmt(e.value, unit)} {UNITS[unit]}
+                    </td>
+                    <td style={{ padding: "5px 8px", borderBottom: "1px solid #ddd" }}>
+                      {trTags[e.tag] || e.tag}
+                    </td>
+                    <td style={{ padding: "5px 8px", borderBottom: "1px solid #ddd" }}>
+                      {trStatus[st.label]}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+          <button
+            className="no-print"
+            onClick={() => setPrinting(false)}
+            style={{
+              marginTop: 16,
+              background: "#eee",
+              color: "#111",
+              border: "1px solid #ccc",
+              borderRadius: 10,
+              padding: "10px 18px",
+              fontSize: 13,
+              fontWeight: 700,
+              cursor: "pointer",
+            }}
+          >
+            {tr.close}
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ---------- Root ----------
 
 function makeDefaultProfile() {
@@ -1570,6 +1969,14 @@ export default function App() {
             target={activeProfile.target}
             lang={lang}
             profileName={profiles.length > 1 ? activeProfile.name : null}
+          />
+        )}
+        {tab === "history" && (
+          <HistoryTab
+            entries={activeProfile.entries}
+            unit={activeProfile.unit}
+            lang={lang}
+            profileName={activeProfile.name}
           />
         )}
         {tab === "info" && <InfoTab lang={lang} />}
