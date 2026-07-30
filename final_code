@@ -19,7 +19,6 @@ import {
   AlertTriangle,
   Apple,
   TestTube2,
-  History as HistoryIcon,
   Printer,
 } from "lucide-react";
 import {
@@ -49,7 +48,28 @@ const COLORS = {
   purple: "#a687f2",
 };
 
-const LOGO_DATA_URI = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPAAAADwCAIAAACxN37FAAAnRklEQVR42u2dd1wUV9fHZ7bDLk16W0VERYrd2LDEgkZj71iTGDEqwQTzoBFLCmINKgRR4qNJLEmMxhJNom9ERTFWECEoIr0sIB22zsz7x3m9n3l3kRhDlJjz/YMPOzsz98yd323nnnuX5jiOQpCXBQFmAYKCRhAUNIKgoBEEBY0gKGgEQUEjCAoaQUEjCAoaQVDQCIKCRhAUNIKCRhAUNIKgoBEEBY0gKGgEQUEjCAoaQVDQCAoaQVDQCIKCRhAUNIKgoBEUNIKgoBEEBY0gKGgEQUEjKGgEQUEjCAoaQVDQCAoaQVDQCIKCRhAUNIKgoBEUNIKgoBEEBY0gKGgEQUEjKGgEQUEjCAoaQVDQCIKCRlDQCIKCRhAUNIKgoBEUNIKgoBEEBY0gKGgEQUEjKGgEQUEjCAoaQVDQCAoaQVDQCIKCRhAUNIKgoBEEBY0gKGgEQUEjCAoaQUEjCAoaQVDQCIKCRhAUNIKgoBEUNIKgoBEEBY0gKGgEQUEjKGgEQUEjCAoaQVDQCAoaQf6x/D8U5xTCEnJctQAAAABJRU5ErkJggg==";
+function Avatar({ name, size = 30 }) {
+  const initial = (name || "?").trim().charAt(0).toUpperCase() || "?";
+  return (
+    <div
+      style={{
+        width: size,
+        height: size,
+        borderRadius: size >= 40 ? 12 : 8,
+        background: COLORS.blue,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexShrink: 0,
+        color: "#ffffff",
+        fontWeight: 800,
+        fontSize: Math.round(size * 0.46),
+      }}
+    >
+      {initial}
+    </div>
+  );
+}
 
 const UNITS = { mgdl: "mg/dL", mmol: "mmol/L" };
 
@@ -311,7 +331,7 @@ const INFO_ARTICLES_BY_LANG = { en: INFO_ARTICLES_EN, bn: INFO_ARTICLES_BN };
 // ---------- UI text translations ----------
 const T = {
   en: {
-    nav: { tracker: "Tracker", history: "History", info: "Info", settings: "Settings" },
+    nav: { tracker: "Tracker", info: "Info", settings: "Settings" },
     tracker: {
       title: "Blood Sugar",
       recent: "Recent",
@@ -353,6 +373,25 @@ const T = {
       saveRange: "Save range",
       chooseLanguage: "Choose language",
     },
+    history: {
+      title: "History",
+      range: "Range",
+      r3: "3d",
+      r7: "7d",
+      r14: "14d",
+      r31: "31d",
+      rAll: "All",
+      last31: "Showing the last 31 days",
+      exportCsv: "Export CSV",
+      exportPdf: "Export PDF (last 31 days)",
+      pdfCaption: "PDF export always covers the most recent 31 days of readings.",
+      noData: "No readings in this period",
+      date: "Date",
+      time: "Time",
+      value: "Value",
+      tag: "Tag",
+      status: "Status",
+    },
     profile: {
       title: "Profile",
       switchProfile: "Switch profile",
@@ -367,34 +406,9 @@ const T = {
       cannotDeleteLast: "You need at least one profile.",
       readingsCount: "readings",
     },
-    history: {
-      title: "History",
-      range: "Range",
-      d7: "7d",
-      d14: "14d",
-      d31: "31d",
-      all: "All",
-      colDate: "Date",
-      colTime: "Time",
-      colValue: "Value",
-      colTag: "Tag",
-      colStatus: "Status",
-      noData: "No readings in this range yet.",
-      exportCsv: "Export CSV",
-      exportPdf: "Export PDF (last 31 days)",
-      pdfNote: "PDF export always covers the most recent 31 days of readings.",
-      reportTitle: "Blood Sugar Report",
-      profileLabel: "Profile",
-      rangeUsed: "Range",
-      generatedOn: "Generated on",
-      last31: "Last 31 days",
-      totalReadings: "Total readings",
-      close: "Close",
-      preparing: "Preparing PDF…",
-    },
   },
   bn: {
-    nav: { tracker: "ট্র্যাকার", history: "হিস্ট্রি", info: "তথ্য", settings: "সেটিংস" },
+    nav: { tracker: "ট্র্যাকার", info: "তথ্য", settings: "সেটিংস" },
     tracker: {
       title: "রক্তে শর্করা",
       recent: "সাম্প্রতিক",
@@ -436,6 +450,25 @@ const T = {
       saveRange: "রেঞ্জ সংরক্ষণ করুন",
       chooseLanguage: "ভাষা বেছে নিন",
     },
+    history: {
+      title: "হিস্টোরি",
+      range: "রেঞ্জ",
+      r3: "৩ দিন",
+      r7: "৭ দিন",
+      r14: "১৪ দিন",
+      r31: "৩১ দিন",
+      rAll: "সব",
+      last31: "সর্বশেষ ৩১ দিনের তথ্য দেখানো হচ্ছে",
+      exportCsv: "CSV এক্সপোর্ট করুন",
+      exportPdf: "PDF এক্সপোর্ট করুন (সর্বশেষ ৩১ দিন)",
+      pdfCaption: "PDF এক্সপোর্ট সবসময় সর্বশেষ ৩১ দিনের রিডিং কভার করে।",
+      noData: "এই সময়ের মধ্যে কোনো রিডিং নেই",
+      date: "তারিখ",
+      time: "সময়",
+      value: "মান",
+      tag: "ট্যাগ",
+      status: "অবস্থা",
+    },
     profile: {
       title: "প্রোফাইল",
       switchProfile: "প্রোফাইল পরিবর্তন করুন",
@@ -450,31 +483,6 @@ const T = {
       cannotDeleteLast: "অন্তত একটা প্রোফাইল থাকতেই হবে।",
       readingsCount: "টা রিডিং",
     },
-    history: {
-      title: "হিস্ট্রি",
-      range: "রেঞ্জ",
-      d7: "৭ দিন",
-      d14: "১৪ দিন",
-      d31: "৩১ দিন",
-      all: "সব",
-      colDate: "তারিখ",
-      colTime: "সময়",
-      colValue: "মান",
-      colTag: "ট্যাগ",
-      colStatus: "অবস্থা",
-      noData: "এই রেঞ্জে এখনো কোনো রিডিং নেই।",
-      exportCsv: "CSV এক্সপোর্ট করুন",
-      exportPdf: "PDF এক্সপোর্ট করুন (শেষ ৩১ দিন)",
-      pdfNote: "PDF এক্সপোর্ট সবসময় সাম্প্রতিক ৩১ দিনের রিডিং কভার করে।",
-      reportTitle: "ব্লাড সুগার রিপোর্ট",
-      profileLabel: "প্রোফাইল",
-      rangeUsed: "রেঞ্জ",
-      generatedOn: "তৈরি হয়েছে",
-      last31: "শেষ ৩১ দিন",
-      totalReadings: "মোট রিডিং",
-      close: "বন্ধ করুন",
-      preparing: "PDF তৈরি হচ্ছে…",
-    },
   },
 };
 
@@ -482,7 +490,6 @@ function BottomNav({ tab, setTab, lang }) {
   const tr = T[lang];
   const items = [
     { id: "tracker", label: tr.nav.tracker, icon: Droplet },
-    { id: "history", label: tr.nav.history, icon: HistoryIcon },
     { id: "info", label: tr.nav.info, icon: BookOpen },
     { id: "settings", label: tr.nav.settings, icon: SettingsIcon },
   ];
@@ -515,8 +522,8 @@ function BottomNav({ tab, setTab, lang }) {
               color: active ? COLORS.teal : COLORS.sub,
             }}
           >
-            <Icon size={19} strokeWidth={active ? 2.4 : 1.8} />
-            <span style={{ fontSize: 10.5, fontWeight: active ? 700 : 500 }}>
+            <Icon size={20} strokeWidth={active ? 2.4 : 1.8} />
+            <span style={{ fontSize: 11, fontWeight: active ? 700 : 500 }}>
               {it.label}
             </span>
           </button>
@@ -570,7 +577,7 @@ function average(entries, days) {
   return inWindow.reduce((a, e) => a + e.value, 0) / inWindow.length;
 }
 
-function Tracker({ entries, unit, addEntry, updateEntry, deleteEntry, target, lang, profileName }) {
+function Tracker({ entries, unit, addEntry, updateEntry, deleteEntry, target, lang, profileName, avatarName }) {
   const [showAdd, setShowAdd] = useState(false);
   const [editing, setEditing] = useState(null);
   const tr = T[lang];
@@ -589,13 +596,7 @@ function Tracker({ entries, unit, addEntry, updateEntry, deleteEntry, target, la
     <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
       <TopBar
         title={tr.tracker.title}
-        right={
-          <img
-            src={LOGO_DATA_URI}
-            alt="App logo"
-            style={{ width: 30, height: 30, objectFit: "contain", borderRadius: 8, background: "#ffffff", padding: 3 }}
-          />
-        }
+        right={<Avatar name={avatarName} size={30} />}
       />
       {profileName && (
         <div style={{ padding: "0 18px 10px", marginTop: -6 }}>
@@ -1073,9 +1074,28 @@ function SettingsTab({
   const [addingProfile, setAddingProfile] = useState(false);
   const [renamingProfile, setRenamingProfile] = useState(null);
   const [nameDraft, setNameDraft] = useState("");
+  const [showHistory, setShowHistory] = useState(false);
+  const [range, setRange] = useState(31);
   const [low, setLow] = useState(target.low);
   const [high, setHigh] = useState(target.high);
   const tr = T[lang];
+
+  const displayRows = useMemo(() => {
+    let filtered = entries;
+    if (range !== "all") {
+      const cutoff = Date.now() - range * 24 * 60 * 60 * 1000;
+      filtered = entries.filter((e) => e.ts >= cutoff);
+    }
+    return filtered.slice().sort((a, b) => b.ts - a.ts);
+  }, [entries, range]);
+
+  const pdfRows = useMemo(() => {
+    const cutoff = Date.now() - 31 * 24 * 60 * 60 * 1000;
+    return entries
+      .filter((e) => e.ts >= cutoff)
+      .slice()
+      .sort((a, b) => a.ts - b.ts);
+  }, [entries]);
 
   const exportFile = useCallback(() => {
     const safeName = activeProfileName.replace(/[^a-zA-Z0-9\u0980-\u09FF]+/g, "-").replace(/^-+|-+$/g, "") || "profile";
@@ -1107,44 +1127,219 @@ function SettingsTab({
     URL.revokeObjectURL(url);
   }, [entries, activeProfileName]);
 
+  const exportPdf = useCallback(() => {
+    const win = window.open("", "_blank");
+    if (!win) return;
+    const h = tr.history;
+    const rowsHtml = pdfRows
+      .map((e) => {
+        const d = new Date(e.ts);
+        const st = statusFor(e.value);
+        return `<tr><td>${d.toLocaleDateString()}</td><td>${d.toLocaleTimeString()}</td><td>${fmt(e.value, unit)} ${UNITS[unit]}</td><td>${tr.tags[e.tag] || e.tag}</td><td>${tr.status[st.label]}</td></tr>`;
+      })
+      .join("");
+    win.document.write(`
+      <html>
+        <head>
+          <title>${h.title} - ${activeProfileName}</title>
+          <meta charset="utf-8" />
+          <style>
+            body { font-family: Arial, Helvetica, sans-serif; padding: 28px; color: #171b2e; }
+            h1 { font-size: 20px; margin: 0 0 4px; }
+            p.sub { color: #555; margin: 0 0 20px; font-size: 13px; }
+            table { width: 100%; border-collapse: collapse; }
+            th, td { border: 1px solid #ddd; padding: 8px 10px; font-size: 13px; text-align: left; }
+            th { background: #f2f2f2; }
+            @media print { body { padding: 12px; } }
+          </style>
+        </head>
+        <body>
+          <h1>${h.title} — ${activeProfileName}</h1>
+          <p class="sub">${h.last31}</p>
+          <table>
+            <thead>
+              <tr><th>${h.date}</th><th>${h.time}</th><th>${h.value}</th><th>${h.tag}</th><th>${h.status}</th></tr>
+            </thead>
+            <tbody>${rowsHtml || `<tr><td colspan="5">${h.noData}</td></tr>`}</tbody>
+          </table>
+        </body>
+      </html>
+    `);
+    win.document.close();
+    win.focus();
+    setTimeout(() => {
+      win.print();
+    }, 300);
+  }, [pdfRows, unit, tr, activeProfileName]);
+
+  if (showHistory) {
+    const ranges = [
+      { key: 3, label: tr.history.r3 },
+      { key: 7, label: tr.history.r7 },
+      { key: 14, label: tr.history.r14 },
+      { key: 31, label: tr.history.r31 },
+      { key: "all", label: tr.history.rAll },
+    ];
+    return (
+      <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+        <TopBar title={tr.history.title} onBack={() => setShowHistory(false)} />
+        <div style={{ flex: 1, overflowY: "auto", padding: "0 18px 90px" }}>
+          <span
+            style={{
+              display: "inline-block",
+              background: COLORS.card2,
+              color: COLORS.teal,
+              fontSize: 11.5,
+              fontWeight: 700,
+              padding: "4px 10px",
+              borderRadius: 20,
+              marginBottom: 16,
+            }}
+          >
+            {activeProfileName}
+          </span>
+
+          <div style={{ fontSize: 11, color: COLORS.sub, marginBottom: 8, textTransform: "uppercase", letterSpacing: 0.5 }}>
+            {tr.history.range}
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 18 }}>
+            {ranges.map((r) => (
+              <button
+                key={r.key}
+                onClick={() => setRange(r.key)}
+                style={{
+                  border: `1px solid ${range === r.key ? COLORS.teal : COLORS.card2}`,
+                  background: range === r.key ? "rgba(43,217,201,0.12)" : COLORS.card,
+                  color: range === r.key ? COLORS.teal : COLORS.ink,
+                  borderRadius: 20,
+                  padding: "8px 16px",
+                  fontSize: 13,
+                  fontWeight: 700,
+                  cursor: "pointer",
+                }}
+              >
+                {r.label}
+              </button>
+            ))}
+          </div>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 }}>
+            {displayRows.length === 0 ? (
+              <div style={{ color: COLORS.sub, textAlign: "center", padding: "24px 0", fontSize: 13 }}>
+                {tr.history.noData}
+              </div>
+            ) : (
+              displayRows.map((e) => {
+                const st = statusFor(e.value);
+                const d = new Date(e.ts);
+                const dateStr = `${d.getDate()} ${d.toLocaleDateString(undefined, { month: "short" })}`;
+                const timeStr = d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit", hour12: false });
+                return (
+                  <div
+                    key={e.id}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 14,
+                      background: COLORS.card,
+                      borderRadius: 14,
+                      padding: "14px 16px",
+                      borderLeft: `4px solid ${st.color}`,
+                    }}
+                  >
+                    <div style={{ minWidth: 54 }}>
+                      <div style={{ fontSize: 13, fontWeight: 800, color: COLORS.ink }}>{dateStr}</div>
+                      <div style={{ fontSize: 11, color: COLORS.sub }}>{timeStr}</div>
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ display: "flex", alignItems: "baseline", gap: 6 }}>
+                        <span style={{ fontSize: 19, fontWeight: 800, color: COLORS.ink }}>{fmt(e.value, unit)}</span>
+                        <span style={{ fontSize: 12, color: COLORS.sub }}>{UNITS[unit]}</span>
+                      </div>
+                      <div style={{ fontSize: 12, color: COLORS.sub, marginTop: 2 }}>{tr.tags[e.tag] || e.tag}</div>
+                    </div>
+                    <div style={{ fontSize: 13, fontWeight: 800, color: st.color }}>{tr.status[st.label]}</div>
+                  </div>
+                );
+              })
+            )}
+          </div>
+
+          <div style={{ display: "flex", gap: 10, marginBottom: 10 }}>
+            <button
+              onClick={exportFile}
+              style={{
+                flex: 1,
+                background: COLORS.card,
+                color: COLORS.ink,
+                border: "none",
+                borderRadius: 12,
+                padding: "13px 8px",
+                fontWeight: 800,
+                fontSize: 13,
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 8,
+              }}
+            >
+              <Download size={16} /> {tr.history.exportCsv}
+            </button>
+            <button
+              onClick={exportPdf}
+              style={{
+                flex: 1,
+                background: COLORS.teal,
+                color: "#0c231f",
+                border: "none",
+                borderRadius: 12,
+                padding: "13px 8px",
+                fontWeight: 800,
+                fontSize: 13,
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 8,
+              }}
+            >
+              <Printer size={16} /> {tr.history.exportPdf}
+            </button>
+          </div>
+          <div style={{ fontSize: 11, color: COLORS.sub, textAlign: "center" }}>{tr.history.pdfCaption}</div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
       <TopBar title={tr.settings.title} />
       <div style={{ flex: 1, overflowY: "auto", padding: "4px 20px 90px" }}>
-        <div
+        <button
+          onClick={() => setShowHistory(true)}
           style={{
+            width: "100%",
             display: "flex",
             alignItems: "center",
             gap: 12,
             background: COLORS.card,
+            border: "none",
             borderRadius: 14,
             padding: "16px",
             marginBottom: 18,
+            cursor: "pointer",
+            textAlign: "left",
           }}
         >
-          <div
-            style={{
-              width: 46,
-              height: 46,
-              borderRadius: 12,
-              background: COLORS.tealDim,
-              border: `1px solid ${COLORS.teal}`,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              overflow: "hidden",
-              flexShrink: 0,
-            }}
-          >
-            <span style={{ fontSize: 18, fontWeight: 800, color: COLORS.teal }}>
-              {(activeProfileName || "?").trim().charAt(0).toUpperCase()}
-            </span>
-          </div>
-          <div>
-            <div style={{ fontSize: 14, fontWeight: 800, color: COLORS.ink }}>{activeProfileName}</div>
+          <Avatar name={activeProfileName} size={46} />
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 14, fontWeight: 800, color: COLORS.ink }}>{tr.settings.dataLives}</div>
             <div style={{ fontSize: 11.5, color: COLORS.sub }}>{tr.settings.exportBackup}</div>
           </div>
-        </div>
+          <ChevronRight size={16} color={COLORS.sub} />
+        </button>
 
         <div style={{ fontSize: 11, color: COLORS.sub, marginBottom: 4, textTransform: "uppercase", letterSpacing: 0.5 }}>
           {tr.profile.title}
@@ -1490,349 +1685,6 @@ function SettingsTab({
   );
 }
 
-// ---------- History tab ----------
-
-function buildCsv(rows, unit, profileName) {
-  const header = `Profile: ${profileName}\ndate,time,value_mgdl,value_mmol,tag,status\n`;
-  const body = rows
-    .slice()
-    .sort((a, b) => a.ts - b.ts)
-    .map((e) => {
-      const d = new Date(e.ts);
-      const st = statusFor(e.value).label;
-      return [
-        d.toLocaleDateString(),
-        d.toLocaleTimeString(),
-        Math.round(e.value),
-        toMmol(e.value).toFixed(1),
-        e.tag,
-        st,
-      ].join(",");
-    })
-    .join("\n");
-  return header + body;
-}
-
-function downloadBlob(content, type, filename) {
-  const blob = new Blob([content], { type });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = filename;
-  a.click();
-  URL.revokeObjectURL(url);
-}
-
-function safeFileToken(name) {
-  return (
-    name.replace(/[^a-zA-Z0-9\u0980-\u09FF]+/g, "-").replace(/^-+|-+$/g, "") || "profile"
-  );
-}
-
-function HistoryTab({ entries, unit, lang, profileName }) {
-  const tr = T[lang].history;
-  const trStatus = T[lang].status;
-  const trTags = T[lang].tags;
-  const [range, setRange] = useState(31);
-  const [printing, setPrinting] = useState(false);
-  const printAreaId = useMemo(
-    () => "bs-print-area-" + Math.random().toString(36).slice(2),
-    []
-  );
-
-  useEffect(() => {
-    if (!printing) return;
-    const t = setTimeout(() => {
-      window.print();
-    }, 150);
-    const onAfterPrint = () => setPrinting(false);
-    window.addEventListener("afterprint", onAfterPrint);
-    return () => {
-      clearTimeout(t);
-      window.removeEventListener("afterprint", onAfterPrint);
-    };
-  }, [printing]);
-
-  const now = Date.now();
-
-  const filtered = useMemo(() => {
-    let list = entries.slice();
-    if (range) {
-      const cutoff = now - range * 24 * 60 * 60 * 1000;
-      list = list.filter((e) => e.ts >= cutoff);
-    }
-    return list.sort((a, b) => b.ts - a.ts);
-  }, [entries, range]);
-
-  const last31 = useMemo(() => {
-    const cutoff = now - 31 * 24 * 60 * 60 * 1000;
-    return entries.filter((e) => e.ts >= cutoff).sort((a, b) => a.ts - b.ts);
-  }, [entries]);
-
-  const rangeChips = [
-    { id: 7, label: tr.d7 },
-    { id: 14, label: tr.d14 },
-    { id: 31, label: tr.d31 },
-    { id: null, label: tr.all },
-  ];
-
-  const exportCsv = () => {
-    const token = safeFileToken(profileName || "profile");
-    const rangeToken = range ? `${range}d` : "all";
-    downloadBlob(
-      buildCsv(filtered, unit, profileName || ""),
-      "text/csv",
-      `blood-sugar-history-${token}-${rangeToken}.csv`
-    );
-  };
-
-  const exportPdf = () => {
-    setPrinting(true);
-  };
-
-  const printRows = last31;
-
-  return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <TopBar title={tr.title} />
-      {profileName && (
-        <div style={{ padding: "0 18px 8px", marginTop: -6 }}>
-          <span
-            style={{
-              display: "inline-block",
-              background: COLORS.card2,
-              color: COLORS.teal,
-              fontSize: 11.5,
-              fontWeight: 700,
-              padding: "4px 10px",
-              borderRadius: 20,
-            }}
-          >
-            {profileName}
-          </span>
-        </div>
-      )}
-      <div style={{ padding: "0 18px 10px" }}>
-        <div style={{ fontSize: 11, color: COLORS.sub, marginBottom: 6, textTransform: "uppercase", letterSpacing: 0.5 }}>
-          {tr.range}
-        </div>
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-          {rangeChips.map((c) => (
-            <button
-              key={String(c.id)}
-              onClick={() => setRange(c.id)}
-              style={{
-                border: `1px solid ${range === c.id ? COLORS.teal : COLORS.card2}`,
-                background: range === c.id ? "rgba(43,217,201,0.12)" : "transparent",
-                color: range === c.id ? COLORS.teal : COLORS.sub,
-                borderRadius: 20,
-                padding: "6px 14px",
-                fontSize: 12,
-                fontWeight: 700,
-                cursor: "pointer",
-              }}
-            >
-              {c.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div style={{ flex: 1, overflowY: "auto", padding: "0 18px 200px" }}>
-        {filtered.length === 0 ? (
-          <div style={{ color: COLORS.sub, textAlign: "center", padding: "24px 0", fontSize: 13 }}>
-            {tr.noData}
-          </div>
-        ) : (
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            {filtered.map((e) => {
-              const st = statusFor(e.value);
-              const d = new Date(e.ts);
-              return (
-                <div
-                  key={e.id}
-                  style={{
-                    background: COLORS.card,
-                    borderRadius: 12,
-                    padding: "10px 12px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 10,
-                    borderLeft: `3px solid ${st.color}`,
-                  }}
-                >
-                  <div style={{ minWidth: 74 }}>
-                    <div style={{ fontSize: 12, fontWeight: 700, color: COLORS.ink }}>
-                      {d.toLocaleDateString(undefined, { month: "short", day: "numeric" })}
-                    </div>
-                    <div style={{ fontSize: 10.5, color: COLORS.sub }}>
-                      {d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })}
-                    </div>
-                  </div>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: COLORS.ink }}>
-                      {fmt(e.value, unit)} <span style={{ fontSize: 10, color: COLORS.sub, fontWeight: 500 }}>{UNITS[unit]}</span>
-                    </div>
-                    <div style={{ fontSize: 11, color: COLORS.sub }}>{trTags[e.tag] || e.tag}</div>
-                  </div>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: st.color }}>
-                    {trStatus[st.label]}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
-
-      <div style={{ position: "absolute", bottom: 78, left: 18, right: 18, display: "flex", flexDirection: "column", gap: 8 }}>
-        <div style={{ display: "flex", gap: 8 }}>
-          <button
-            onClick={exportCsv}
-            style={{
-              flex: 1,
-              background: COLORS.card2,
-              color: COLORS.ink,
-              border: "none",
-              borderRadius: 14,
-              padding: "12px 0",
-              fontSize: 13,
-              fontWeight: 800,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 6,
-              cursor: "pointer",
-            }}
-          >
-            <Download size={15} /> {tr.exportCsv}
-          </button>
-          <button
-            onClick={exportPdf}
-            style={{
-              flex: 1,
-              background: COLORS.teal,
-              color: "#0c231f",
-              border: "none",
-              borderRadius: 14,
-              padding: "12px 0",
-              fontSize: 13,
-              fontWeight: 800,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 6,
-              cursor: "pointer",
-              boxShadow: "0 8px 20px -6px rgba(43,217,201,0.55)",
-            }}
-          >
-            <Printer size={15} /> {tr.exportPdf}
-          </button>
-        </div>
-        <div style={{ fontSize: 10.5, color: COLORS.sub, textAlign: "center" }}>{tr.pdfNote}</div>
-      </div>
-
-      {printing && (
-        <div
-          className={printAreaId}
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 9999,
-            overflowY: "auto",
-            fontFamily: "'Inter', -apple-system, 'Segoe UI', sans-serif",
-            color: "#111",
-            background: "#fff",
-            padding: "28px 32px",
-          }}
-        >
-          <style>{`
-            @media print {
-              body * { visibility: hidden; }
-              .${printAreaId}, .${printAreaId} * { visibility: visible; }
-              .${printAreaId} { position: fixed; inset: 0; padding: 24px 28px; }
-              .${printAreaId} .no-print { display: none !important; }
-            }
-          `}</style>
-          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 6 }}>
-            <img src={LOGO_DATA_URI} alt="logo" style={{ width: 34, height: 34 }} />
-            <div style={{ fontSize: 20, fontWeight: 800 }}>{tr.reportTitle}</div>
-          </div>
-          <div style={{ fontSize: 12, color: "#555", marginBottom: 18, lineHeight: 1.6 }}>
-            {profileName && <div>{tr.profileLabel}: <strong>{profileName}</strong></div>}
-            <div>{tr.rangeUsed}: <strong>{tr.last31}</strong></div>
-            <div>{tr.totalReadings}: <strong>{printRows.length}</strong></div>
-            <div>{tr.generatedOn}: <strong>{new Date().toLocaleString()}</strong></div>
-          </div>
-          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
-            <thead>
-              <tr>
-                {[tr.colDate, tr.colTime, tr.colValue, tr.colTag, tr.colStatus].map((h) => (
-                  <th
-                    key={h}
-                    style={{
-                      textAlign: "left",
-                      borderBottom: "2px solid #333",
-                      padding: "6px 8px",
-                      fontSize: 11.5,
-                      textTransform: "uppercase",
-                      letterSpacing: 0.4,
-                    }}
-                  >
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {printRows.map((e) => {
-                const d = new Date(e.ts);
-                const st = statusFor(e.value);
-                return (
-                  <tr key={e.id} style={{ breakInside: "avoid" }}>
-                    <td style={{ padding: "5px 8px", borderBottom: "1px solid #ddd" }}>
-                      {d.toLocaleDateString()}
-                    </td>
-                    <td style={{ padding: "5px 8px", borderBottom: "1px solid #ddd" }}>
-                      {d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })}
-                    </td>
-                    <td style={{ padding: "5px 8px", borderBottom: "1px solid #ddd" }}>
-                      {fmt(e.value, unit)} {UNITS[unit]}
-                    </td>
-                    <td style={{ padding: "5px 8px", borderBottom: "1px solid #ddd" }}>
-                      {trTags[e.tag] || e.tag}
-                    </td>
-                    <td style={{ padding: "5px 8px", borderBottom: "1px solid #ddd" }}>
-                      {trStatus[st.label]}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-          <button
-            className="no-print"
-            onClick={() => setPrinting(false)}
-            style={{
-              marginTop: 16,
-              background: "#eee",
-              color: "#111",
-              border: "1px solid #ccc",
-              borderRadius: 10,
-              padding: "10px 18px",
-              fontSize: 13,
-              fontWeight: 700,
-              cursor: "pointer",
-            }}
-          >
-            {tr.close}
-          </button>
-        </div>
-      )}
-    </div>
-  );
-}
-
 // ---------- Root ----------
 
 function makeDefaultProfile() {
@@ -1969,14 +1821,7 @@ export default function App() {
             target={activeProfile.target}
             lang={lang}
             profileName={profiles.length > 1 ? activeProfile.name : null}
-          />
-        )}
-        {tab === "history" && (
-          <HistoryTab
-            entries={activeProfile.entries}
-            unit={activeProfile.unit}
-            lang={lang}
-            profileName={activeProfile.name}
+            avatarName={activeProfile.name}
           />
         )}
         {tab === "info" && <InfoTab lang={lang} />}
